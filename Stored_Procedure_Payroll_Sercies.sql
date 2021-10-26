@@ -111,3 +111,5 @@ SELECT
     ERROR_MESSAGE() AS ErrorMessage;
 END CATCH 
 
+exec spGetAllemployeeAndPayroll
+
