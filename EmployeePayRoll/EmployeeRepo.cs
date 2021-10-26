@@ -14,13 +14,12 @@ namespace EmployeePayRoll
         {
             try
             {
-                DateTime now = DateTime.Now; //create object DateTime class //DateTime.Now class access system date and time 
-                connection.Open(); // open connection
-                using (connection)  //using SqlConnection
+                connection.Open();
+                using (connection)
                 {
-                    Console.WriteLine($"Connection is created Successful {now}"); //print msg
+                    Console.WriteLine($"Connection is created Successful");
                 }
-                connection.Close(); //close connection
+                connection.Close();
             }
             catch (Exception ex)
             {
@@ -40,10 +39,10 @@ namespace EmployeePayRoll
                     adapter.Fill(dataSet, "employee_payroll");
                     foreach (DataRow dataRow in dataSet.Tables["employee_payroll"].Rows)
                     {
-                        Console.WriteLine("\t" + dataRow["id"] + "  " + dataRow["name"] + " " + dataRow["salary"] + 
+                        Console.WriteLine("\t" + dataRow["id"] + "  " + dataRow["name"] + " " + dataRow["salary"] +
                             " " + dataRow["start_date"] + " " + dataRow["Gender"] + " " + dataRow["phone"] + " " +
                             dataRow["address"] + dataRow["department"] + " " + dataRow["basicPay"] + " " + dataRow["deduction"] + " " +
-                            dataRow["taxablePay"] + " " + dataRow["incomeTax"] + " " );
+                            dataRow["taxablePay"] + " " + dataRow["incomeTax"] + " ");
                     }
                     this.connection.Close();
                 }
@@ -132,6 +131,36 @@ namespace EmployeePayRoll
                     this.connection.Close();
                 }
                 return dataSet;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            finally
+            {
+                this.connection.Close();
+            }
+        }
+        public DataSet RetrieveAllEmployeeDeatilsUsingJoins()
+        {
+            try
+            {
+                DataSet dataSets = new DataSet();
+                using (this.connection)
+                {
+                    this.connection.Open();
+                    SqlDataAdapter adapter = new SqlDataAdapter("spGetAllemployeeAndPayroll", this.connection);
+                    adapter.Fill(dataSets, "Employee");
+                    foreach (DataRow dataRow in dataSets.Tables["Employee"].Rows)
+                    {
+                        Console.WriteLine("\t" + dataRow["emp_id"] + "  " + dataRow["name"] + " "  +
+                                " " + dataRow["startdate"] + " " + dataRow["gender"] + " " + dataRow["phone"] + " " +
+                                dataRow["address"] + dataRow["emp_id"] + " " + dataRow["net_pay"] + " " + dataRow["deduction"] + " " +
+                                dataRow["taxable_pay"] + " " + dataRow["income_tax"] + " ");
+                    }
+                    this.connection.Close();
+                }
+                return dataSets;
             }
             catch (Exception e)
             {

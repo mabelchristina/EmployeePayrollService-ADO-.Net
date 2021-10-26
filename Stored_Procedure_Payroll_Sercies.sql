@@ -95,3 +95,19 @@ SELECT
 END CATCH
 
 exec spSumOfSalaryOfMaleEmployee
+
+
+create procedure spGetAllemployeeAndPayroll
+As 
+Begin try
+select * from Employee AS e join Payroll AS p on e.emp_id=p.emp_id where net_pay>5000
+end try
+Begin catch
+SELECT
+    ERROR_NUMBER() AS ErrorNumber,
+    ERROR_STATE() AS ErrorState,
+    ERROR_PROCEDURE() AS ErrorProcedure,
+    ERROR_LINE() AS ErrorLine,
+    ERROR_MESSAGE() AS ErrorMessage;
+END CATCH 
+

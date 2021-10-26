@@ -103,12 +103,30 @@ phone varchar(13),
 address varchar(50),
 )
 
+insert into Employee values
+ ('Nikki','2020-01-01','F','8527419630','Bangalore')
+ insert into Employee values
+ ('Vicki','2021-02-01','F','85277719630','Mumbai')
+ insert into Employee values
+ ('Micky','2020-05-01','F','98827419630','Chennai')
+  insert into Employee values
+ ('bicky','2020-07-01','F','9627419630','Pune')
+
+
 create table Department
 (
 dept_id int identity primary key,
 rooms int,
 emp_id int FOREIGN KEY REFERENCES employee(emp_id)
 )
+
+insert into Department values
+(101,1)
+
+insert into Department values
+(102,1)
+
+
 
 
 create table Payroll
@@ -121,6 +139,10 @@ income_tax money,
 net_pay money,
 )
 
+insert into Payroll values
+(1,5000,200,150,100,5450)
+insert into Payroll values
+(2,6000,300,150,100,6550)
 
 create table Company
 (
@@ -128,11 +150,21 @@ emp_id int foreign key references employee(emp_id),
 company_name varchar(50),
 )
 
+insert into Company values
+(1,'Bridgelabz')
+insert into Company values
+(2,'Amazon')
+insert into Company values
+(3,'TCS')
+
 create table EmployeeDepartment
 (
 emp_id int foreign key references employee(emp_id),
 dept_id int foreign key references Department(dept_id),
 )
+
+insert into EmployeeDepartment values
+(1,101)
 
 select * from Employee
 select * from Department
@@ -143,3 +175,7 @@ select * from EmployeeDepartment
 update employee_payroll set basicPay = 1000 where name = 'Mabel'
 
 select * from employee_payroll
+
+select * from Employee AS e join EmployeeDepartment AS d on e.emp_id=d.emp_id
+
+select * from Employee AS e join Payroll AS p on e.emp_id=p.emp_id where net_pay>5000

@@ -12,7 +12,8 @@ namespace EmployeePayRoll
             while (!isExit)
             {
                 Console.WriteLine("choose 1.GetAllEmployeeDetails\n 2.AddEmployeeDetails\n" +
-                    " 3.UpdateEmployeeDetails\n 4.RetrieveAllEmployeeForParticularRange");
+                    " 3.UpdateEmployeeDetails\n 4.RetrieveAllEmployeeForParticularRange\n"+
+                    "5.Retrieve Sal from Employee and Payroll using joins");
                 options = Convert.ToInt32(Console.ReadLine());
                 switch (options)
                 {
@@ -32,7 +33,10 @@ namespace EmployeePayRoll
                     case 4:
                         empRepository.RetrieveAllEmployeeForParticularRange();
                         break;
-                    de:
+                    case 5:
+                        empRepository.RetrieveAllEmployeeDeatilsUsingJoins();
+                        break;
+                    default:
                         Console.WriteLine("enter valid option");
                         break;
                 }
